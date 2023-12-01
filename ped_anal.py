@@ -219,7 +219,39 @@ def canvas_history(x,y,x_string,y_string,name):
     can1.Write()
     can1.SaveAs("output_plots/"+name+".png")
 
+def canvas_norm(x,y,x_string,y_string,name):
+    graph=grapherr(x,y,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),x_string,y_string,name)
+    can1=ROOT.TCanvas(name, name, 1200   ,1200)
+    can1.SetFillColor(0)
+    can1.SetBorderMode(0)
+    can1.SetBorderSize(2)
+    can1.SetLeftMargin(0.18)
+    can1.SetRightMargin(0.02)
+    can1.SetTopMargin(0.1)
+    can1.SetBottomMargin(0.1)
+    can1.SetFrameBorderMode(0)
+    can1.SetFrameBorderMode(0)
+    can1.SetFixedAspectRatio()
+    #can1.cd()
+    graph.Draw("AP")
+    #graph.GetXaxis().SetDecimals(1)
+    #graph.GetXaxis().SetMaxDigits(2)
 
+    can1.Write()
+    can1.SaveAs("output_plots/"+name+".png")
+
+
+#ONLY GRAPHERR
+canvas_norm(run_num/1000,mean,"Pedestal Run Number (#times 10^{3})","Mean from TH2","Mean from TH2")
+canvas_norm(run_num/1000,rms,"Pedestal Run Number (#times 10^{3})","RMS from TH2","RMS from TH2")
+canvas_norm(run_num/1000,integral,"Pedestal Run Number (#times 10^{3})","Integral from TH2","Integral from TH2")
+canvas_norm(run_num/1000,mean/np.max(mean),"Pedestal Run Number (#times 10^{3})","Normalized Mean from TH2","Normalized Mean from TH2")
+canvas_norm(run_num/1000,rms/np.max(rms),"Pedestal Run Number (#times 10^{3})","Normalized RMS from TH2","Normalized RMS from TH2")
+canvas_norm(run_num/1000,integral/np.max(integral),"Pedestal Run Number (#times 10^{3})","Normalized Integral from TH2","Normalized Integral from TH2")
+
+
+
+"""
 canvas_history(run_num/1000,noisyPix110,"Pedestal Run Number (#times 10^{3})","# Pixels mean>110","# Pixels mean>110")
 canvas_history(run_num/1000,noisyPix103,"Pedestal Run Number (#times 10^{3})","# Pixels mean>103","# Pixels mean>103")
 canvas_history(run_num/1000,noisyPix97,"Pedestal Run Number (#times 10^{3})","# Pixels mean<97","# Pixels mean<97")
@@ -230,14 +262,15 @@ canvas_history(run_num/1000,mean,"Pedestal Run Number (#times 10^{3})","Mean fro
 canvas_history(run_num/1000,rms,"Pedestal Run Number (#times 10^{3})","RMS from TH2","RMS from TH2")
 canvas_history(run_num/1000,integral,"Pedestal Run Number (#times 10^{3})","Integral from TH2","Integral from TH2")
 
-"""
-grapherr(run_num,noisyPix110,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","# Pixels mean>110","# Pixels mean>110")
-grapherr(run_num,noisyPix103,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","# Pixels mean>103","# Pixels mean>103")
-grapherr(run_num,noisyPix97,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","# Pixels mean<97","# Pixels mean<97")
-grapherr(run_num,rmsnoisyPix5,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","# Pixels rms>5","# Pixel rms>5")
-grapherr(run_num,rmsnoisyPix10,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","# Pixels rms>10","# Pixel rms>10")
-grapherr(run_num,rmsnoisyPix15,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","# Pixels rms>15","# Pixel rms>15")
-grapherr(run_num,mean,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","Mean from TH2","Mean from TH2")
-grapherr(run_num,rms,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","RMS from TH2","RMS from TH2")
-grapherr(run_num,integral,1E-20*np.ones(len(run_num)),1E-20*np.ones(len(run_num)),"Pedestal Run Number","Integral from TH2","Integral from TH2")
+#normalized
+canvas_history(run_num/1000,noisyPix110/np.max(noisyPix110),"Pedestal Run Number (#times 10^{3})","Norm # Pixels mean>110","Norm # Pixels mean>110")
+canvas_history(run_num/1000,noisyPix103/np.max(noisyPix103),"Pedestal Run Number (#times 10^{3})","Norm # Pixels mean>103","Norm # Pixels mean>103")
+canvas_history(run_num/1000,noisyPix97/np.max(noisyPix97),"Pedestal Run Number (#times 10^{3})","Norm # Pixels mean<97","Norm # Pixels mean<97")
+canvas_history(run_num/1000,rmsnoisyPix5/np.max(rmsnoisyPix5),"Pedestal Run Number (#times 10^{3})","Norm # Pixels rms>5","Norm # Pixel rms>5")
+canvas_history(run_num/1000,rmsnoisyPix10/np.max(rmsnoisyPix10),"Pedestal Run Number (#times 10^{3})","Norm # Pixels rms>10","Norm # Pixel rms>10")
+canvas_history(run_num/1000,rmsnoisyPix15/np.max(rmsnoisyPix15),"Pedestal Run Number (#times 10^{3})","Norm # Pixels rms>15","Norm # Pixel rms>15")
+canvas_history(run_num/1000,mean/np.max(mean),"Pedestal Run Number (#times 10^{3})","Norm Mean from TH2","Norm Mean from TH2")
+canvas_history(run_num/1000,rms/np.max(rms),"Pedestal Run Number (#times 10^{3})","Norm RMS from TH2","Norm RMS from TH2")
+canvas_history(run_num/1000,integral/np.max(integral),"Pedestal Run Number (#times 10^{3})","Norm Integral from TH2","Norm Integral from TH2")
+
 """
